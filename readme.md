@@ -72,7 +72,7 @@ Este projeto faz parte do meu processo de aprendizado. Se você tiver sugestões
 ## 📽 Demonstração
 
 > Um vídeo com o sistema em funcionamento está disponível no post do LinkedIn.  
-> _(Adicione aqui o link quando for postar)_
+> https://www.linkedin.com/posts/pedro-marques-fullstack_java-jsp-crud-activity-7326592657042944001-UGdL?utm_source=share&utm_medium=member_desktop&rcm=ACoAAERHQK0BqKM4LqG5Um3IJeb-aHndem39vRA
 
 ---
 
