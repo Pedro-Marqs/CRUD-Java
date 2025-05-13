@@ -15,6 +15,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import br.com.aplcurso.dao.EstadoDAO;
+import br.com.aplcurso.dao.GenericDAO;
+import br.com.aplcurso.model.Estado;
 
 /**
  *
@@ -47,6 +50,11 @@ public class UsuarioCadastrar extends HttpServlet {
             String email = request.getParameter("email");
             String senha = request.getParameter("senha");
 
+            //recebendo o estado.
+            int idEstado = Integer.parseInt(request.getParameter("idestado"));
+            EstadoDAO estadoDao = new EstadoDAO();
+            Estado oEstado = (Estado) estadoDao.carregar(idEstado);
+
             //tratamento para o campo salario R$1.000,00
             String salarioStr = request.getParameter("salario");
             // Remove "R$", espaços e pontos de milhar, e troca a vírgula por ponto
@@ -64,7 +72,7 @@ public class UsuarioCadastrar extends HttpServlet {
             } else if (dao.cpfExiste(cpf) && id == 0) {
                 //verifica se cpf já esta cadastrado
                 response.getWriter().write("4");
-            } else if(dao.emailExiste(email) && id==0){
+            } else if (dao.emailExiste(email) && id == 0) {
                 //verifica se o email esta cadastrado
                 response.getWriter().write("6");
             } else if (nome.isEmpty() || nome.isBlank() || salario <= 0
@@ -82,6 +90,7 @@ public class UsuarioCadastrar extends HttpServlet {
                 oUsuario.setEmail(email);
                 oUsuario.setSenha(senha);
                 oUsuario.setSalario(salario);
+                oUsuario.setEstado(oEstado);
 
                 if (dao.cadastrar(oUsuario)) {
                     response.getWriter().write("1");

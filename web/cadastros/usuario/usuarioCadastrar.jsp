@@ -18,16 +18,19 @@
         <div class="col-lg-9">
             <div class="card shadow mb-4">
                 <div class="card-body">
+                    <!--Id-->
                     <div class="form-group">
                         <label>Id</label>
                         <input class="form-control" type="text" name="id" id="id" 
                                value="${usuario.id}" readonly="readonly"/>
                     </div>
+                    <!--Nome-->
                     <div class="form-group">
                         <label>Nome</label>
                         <input class="form-control" type="text" name="nome" id="nome" 
                                value="${usuario.nome}" size="100" maxlength="100"/>
                     </div>
+                    <!--CPF-->
                     <div class="form-group">
                         <label>CPF</label>
                         <input class="form-control" type="text" name="cpf" id="cpf" 
@@ -35,11 +38,13 @@
                     </div>
                     <div class="form-group">
                         <div class="form-line row">
+                            <!--Data Nascimento-->
                             <div class="col-sm">
                                 <label>Data de Nascimento</label>
                                 <input class="form-control" type="date" name="datanascimento" id="datanascimento" 
                                        value="${usuario.dataNascimento}"/>
                             </div>
+                            <!--Salario-->
                             <div class="col-sm">
                                 <label>Valor do Salário</label>
                                 <input class="form-control" type="text" style="text-align:right;" 
@@ -48,12 +53,27 @@
                             </div>
                         </div>
                     </div>
+                    <!--Estado-->        
+                    <div class="form-group">
+                        <label>Estado</label>
+                        <select name="idestado" id="idestado" class="form-control">
+                            <option value="">Selecione</option>
+                            <c:forEach var="estado" items="${estados}">
+                                <option value="${estado.id}"
+                                        ${usuario.estado.id == estado.id ? "selected" : ""}>
+                                    ${estado.nomeEstado}
+                                </option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <!--Email-->
                     <div class="form-group">
                         <label>Email</label>
                         <input class="form-control" type="email" name="email" id="email" 
                                value="${usuario.email}" size="100" maxlength="100" 
                                required="true"/>
                     </div>
+                    <!--Senha-->
                     <div class="form-group">
                         <label>Senha</label>
                         <input class="form-control" type="password" name="senha" id="senha" 
@@ -273,7 +293,8 @@
                 datanascimento: $('#datanascimento').val(),
                 salario: $('#salario').val(),
                 email: $('#email').val(),
-                senha: $('#senha').val()
+                senha: $('#senha').val(),
+                idestado: $('#idestado').val()
             },
             success: function (data) {
                 console.log("resposta servlet->");

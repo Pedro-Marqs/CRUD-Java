@@ -12,6 +12,7 @@ public class Usuario {
     private String email;
     private String senha;
     private double salario;
+    private Estado estado;
 
     public Usuario() {
         this.id = 0;
@@ -21,6 +22,7 @@ public class Usuario {
         this.senha = "";
         this.salario = 0;
         this.dataNascimento = null;
+        this.estado = new Estado();
     }
 
     public Usuario(int id, String nome, Date dataNascimento, String cpf, String email, String senha, double salario) {
@@ -31,6 +33,7 @@ public class Usuario {
         this.email = email;
         this.senha = senha;
         this.salario = salario;
+        this.estado = estado;
     }
 
     public int getId() {
@@ -87,6 +90,14 @@ public class Usuario {
 
     public void setSalario(double salario) {
         this.salario = salario;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 
     @Override
