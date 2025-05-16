@@ -25,7 +25,7 @@ public class Usuario {
         this.estado = new Estado();
     }
 
-    public Usuario(int id, String nome, Date dataNascimento, String cpf, String email, String senha, double salario) {
+    public Usuario(int id, String nome, Date dataNascimento, String cpf, String email, String senha, double salario, Estado estado) {
         this.id = id;
         this.nome = nome;
         this.dataNascimento = dataNascimento;
