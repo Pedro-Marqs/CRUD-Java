@@ -33,28 +33,29 @@ public class EstadoCadastrar extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=iso-8859-1");
-        try{
-            
+        try {
+
             EstadoDAO dao = new EstadoDAO();
-            
-            int id=Integer.parseInt(request.getParameter("id"));
+
+            int id = Integer.parseInt(request.getParameter("id"));
             String nomeEstado = request.getParameter("nomeEstado");
             String siglaEstado = request.getParameter("siglaEstado");
-            
-            Estado oEstado = new Estado();
-            oEstado.setId(id);
-            oEstado.setNomeEstado(nomeEstado);
-            oEstado.setSiglaEstado(siglaEstado);
-            
-            if(dao.cadastrar(oEstado)){
-                response.getWriter().write("1");
-            } else if(dao.siglaExiste(siglaEstado) && id==0){
+
+            if (dao.siglaExiste(siglaEstado) && id == 0) {
                 response.getWriter().write("2");
-            } 
-            else{
-                response.getWriter().write("0");
+            } else {
+                Estado oEstado = new Estado();
+                oEstado.setId(id);
+                oEstado.setNomeEstado(nomeEstado);
+                oEstado.setSiglaEstado(siglaEstado);
+
+                if (dao.cadastrar(oEstado)) {
+                    response.getWriter().write("1");
+                } else {
+                    response.getWriter().write("0");
+                }
             }
-        } catch(Exception ex){
+        } catch (Exception ex) {
             System.out.println("Problemas no Servlet cadastrar Estado! Erro: " + ex.getMessage());
         }
     }
