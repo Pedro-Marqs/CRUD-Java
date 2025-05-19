@@ -5,7 +5,9 @@ create table usuario (
     cpf varchar(11) not null,
     email varchar(100) not null,
     senha varchar(20) not null,
-    salario decimal(15,2) not null
+    salario decimal(15,2) not null,
+    idestado integer,
+    CONSTRAINT fk_usuario_estado FOREIGN KEY (idestado) REFERENCES estado (id)
 );
 
 create table estado (

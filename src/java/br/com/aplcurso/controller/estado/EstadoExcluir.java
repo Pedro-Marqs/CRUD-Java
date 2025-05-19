@@ -35,8 +35,11 @@ public class EstadoExcluir extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
 
         try {
-            GenericDAO dao = new EstadoDAO();
-            if(dao.excluir(id)){
+            EstadoDAO dao = new EstadoDAO();
+            
+            if(dao.usuarioExiste(id)){
+                response.getWriter().write("2");
+            }else if(dao.excluir(id)){
                 response.getWriter().write("1");
             }else{
                 response.getWriter().write("0");

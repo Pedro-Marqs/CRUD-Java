@@ -77,7 +77,9 @@
 
     function deletar(codigo) {
         var id = codigo;
+        var contextPath = '${pageContext.request.contextPath}';
         console.log(codigo);
+
         Swal.fire({
             title: 'Você tem certeza?',
             text: "Você não poderá recuperar depois!",
@@ -99,32 +101,47 @@
                             function (data) {
                                 if (data == 1) {
                                     Swal.fire({
-                                        position: 'top-end',
+                                        position: 'center',
                                         icon: 'success',
                                         title: 'Sucesso',
                                         text: 'Estado excluído com sucesso!',
                                         showConfirmButton: false,
-                                        timer: 2000
-                                    })
+                                        timer: 2000,
+                                        timerProgressBar: true
+                                    }).then(() => {
+                                        window.location.href = contextPath + '/EstadoListar';
+                                    });
+                                } else if (data == 2) {
+                                    Swal.fire({
+                                        position: 'center',
+                                        icon: 'error',
+                                        title: 'Estado cadastrado em usuário!',
+                                        text: 'Verifique se algum usuário está cadastrado com este estado!',
+                                        showConfirmButton: false,
+                                        timer: 3000,
+                                        timerProgressBar: true
+                                    });
                                 } else {
                                     Swal.fire({
-                                        position: 'top-end',
+                                        position: 'center',
                                         icon: 'error',
                                         title: 'Erro',
                                         text: 'Não foi possível excluir o estado!',
                                         showConfirmButton: false,
-                                        timer: 2000
-                                    })
+                                        timer: 3000,
+                                        timerProgressBar: true
+                                    });
                                 }
-                                window.location.href = "${pageContext.request.contextPath}/EstadoListar";
                             },
-                    error:
-                            function (data) {
-                                window.location.href = "${pageContext.request.contextPath}/EstadoListar";
-                            }
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro de conexão',
+                            text: 'Falha ao conectar com o servidor.'
+                        });
+                    }
                 });
             }
-            ;
         });
     }
 

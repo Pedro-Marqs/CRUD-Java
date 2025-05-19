@@ -57,81 +57,89 @@
     </div>
 </div>      
 <script>
-    $(document).ready(function() {
-            console.log('entrei ready');
-            //Carregamos a datatable
-            //$("#datatable").DataTable({});
-            $('#datatable').DataTable({
-                "oLanguage": {
-                    "sProcessing": "Processando...",
-                    "sLengthMenu": "Mostrar _MENU_ registros",
-                    "sZeroRecords": "Nenhum registro encontrado.",
-                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando de 0 até 0 de 0 registros",
-                    "sInfoFiltered": "",
-                    "sInfoPostFix": "",
-                    "sSearch": "Buscar:",
-                    "sUrl": "",
-                    "oPaginate": {
-                        "sFirst": "Primeiro",
-                        "sPrevious": "Anterior",
-                        "sNext": "Seguinte",
-                        "sLast": "Último"
+    $(document).ready(function () {
+        console.log('entrei ready');
+        //Carregamos a datatable
+        //$("#datatable").DataTable({});
+        $('#datatable').DataTable({
+            "oLanguage": {
+                "sProcessing": "Processando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "Nenhum registro encontrado.",
+                "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando de 0 até 0 de 0 registros",
+                "sInfoFiltered": "",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "oPaginate": {
+                    "sFirst": "Primeiro",
+                    "sPrevious": "Anterior",
+                    "sNext": "Seguinte",
+                    "sLast": "Último"
+                }
+            }
+        });
+    });
+
+    function deletar(codigo) {
+    var id = codigo;
+    var contextPath = '${pageContext.request.contextPath}'; // <- agora declarada corretamente
+    console.log(codigo);
+    Swal.fire({
+        title: 'Você tem certeza?',
+        text: "Você não poderá recuperar depois!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim, apague o usuário!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: 'post',
+                url: contextPath + '/UsuarioExcluir',
+                data: {
+                    id: id
+                },
+                success: function (data) {
+                    if (data == 1) {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Sucesso',
+                            text: 'Usuário excluído com sucesso!',
+                            showConfirmButton: false,
+                            timer: 2000,
+                            timerProgressBar: true
+                        }).then(() => {
+                            window.location.href = contextPath + '/UsuarioListar';
+                        });
+                    } else {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Erro',
+                            text: 'Não foi possível excluir o usuário!',
+                            showConfirmButton: false,
+                            timer: 2000,
+                            timerProgressBar: true
+                        }).then(() => {
+                            window.location.href = contextPath + '/UsuarioListar';
+                        });
                     }
+                },
+                error: function () {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro de conexão',
+                        text: 'Falha ao tentar excluir o usuário. Tente novamente mais tarde.'
+                    });
                 }
             });
-        });
-        
-    function deletar(codigo){
-        var id = codigo;
-        console.log(codigo);
-        Swal.fire({
-            title: 'Você tem certeza?',
-            text: "Você não poderá recuperar depois!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sim, apague o usuário!',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    type: 'post',
-                    url: '${pageContext.request.contextPath}/UsuarioExcluir',
-                    data:{
-                        id: id
-                    },
-                    success:
-                        function(data){
-                            if(data == 1){
-                                Swal.fire({
-                                    position: 'top-end',
-                                    icon: 'success',
-                                    title: 'Sucesso',
-                                    text: 'Usuário excluído com sucesso!',
-                                    showConfirmButton: false,
-                                    timer: 2000
-                                })
-                            } else {
-                                Swal.fire({
-                                    position: 'top-end',
-                                    icon: 'error',
-                                    title: 'Erro',
-                                    text: 'Não foi possível excluir o usuário!',
-                                    showConfirmButton: false,
-                                    timer: 2000
-                                })
-                            }
-                            window.location.href = "${pageContext.request.contextPath}/UsuarioListar";
-                        },
-                    error:
-                        function(data){
-                            window.location.href = "${pageContext.request.contextPath}/UsuarioListar";
-                        }
-                });
-            };
-        });
-    }
+        }
+    });
+}
 </script>
 <%@include file="/footer.jsp"%>
