@@ -81,46 +81,6 @@ public class EstadoDAO implements GenericDAO {
             return false;
         }
     }
-    
-    //AAAAAAAAAAAAAAAAAAAAAAAAAAA
-//    @Override
-//    public Boolean excluir(int numero) {
-//        PreparedStatement stmt = null;
-//
-//        String sqlu = "SELECT COUNT(*) as quantidade_usuario FROM estado WHERE usario.idestado=estado.id";
-//        try (PreparedStatement stmtu = conexao.prepareStatement(sqlu)) {
-//            stmt.setInt(1, numero);
-//            ResultSet rs = stmtu.executeQuery();
-//            while (rs.next()) {
-//                if (rs.getInt("quantidade_usuario") < 1) {
-//                    String sql = "delete from estado where id=?";
-//                    try {
-//                        stmt = conexao.prepareStatement(sql);
-//                        stmt.setInt(1, numero);
-//                        stmt.execute();
-//                        conexao.commit();
-//                        return true;
-//                    } catch (Exception ex) {
-//                        try {
-//                            System.out.println("Problemas ao excluir o Estado! Erro: " + ex.getMessage());
-//                            ex.printStackTrace();
-//                            conexao.rollback();
-//                        } catch (SQLException e) {
-//                            System.out.println("Erro:" + e.getMessage());
-//                            e.printStackTrace();
-//                        }
-//                        return false;
-//                    }
-//                } else{
-//                    response.getWriter().write("3");
-//                }
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return false;
-//    }
-    //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
     @Override
     public Boolean excluir(int numero) {
